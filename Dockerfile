@@ -2,6 +2,7 @@
 FROM node:alpine as develop-stage
 WORKDIR /app
 RUN echo "pwd : $PWD"
+RUN file="$(ls)" && echo $file
 COPY package*.json ./
 RUN npm install
 COPY . .
