@@ -9,7 +9,7 @@ jobs:
       uses: actions/checkout@v2
     - name: stage 2 (building docker image)
       id: test
-      uses: ./pwd
+      uses: ./
       with:
        myInput: '----'
     - name: stage 3 (outputs:)
