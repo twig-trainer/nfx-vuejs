@@ -15,4 +15,4 @@ jobs:
     - name stage 3 (outputs:)
       run: |
         echo ${{ steps.test.outputs.memory }}
-        echo "test ended in current env"
+        echo "current total memory in current env"
