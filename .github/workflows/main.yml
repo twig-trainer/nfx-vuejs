@@ -7,6 +7,8 @@ jobs:
     steps:
     - name: stage 1 (run the checkout action)
       uses: actions/checkout@v2
+    - name: stage 1.1 PWD
+      uses: pwd
     - name: stage 2 (building docker image)
       id: test
       uses: ./
