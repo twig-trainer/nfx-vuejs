@@ -3,7 +3,7 @@ FROM node:alpine as develop-stage
 WORKDIR /app
 RUN echo "pwd : $PWD"
 RUN ls -la
-COPY package*.json ./
+COPY package*.json /app
 RUN npm install
 COPY . .
 
