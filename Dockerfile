@@ -1,5 +1,6 @@
 # develop stage
 FROM node:alpine as develop-stage
+ENV NODE_VERSION 14.19.3
 RUN echo "pwd : $PWD"
 RUN ls -la
 RUN npm cache clean -f
