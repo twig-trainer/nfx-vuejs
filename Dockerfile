@@ -2,9 +2,7 @@
 FROM node:alpine as develop-stage
 WORKDIR /app
 RUN echo "pwd : $PWD"
-RUN alias ls > $DOCKER_GO
-RUN echo "ls" >> $DOCKER_GO
-RUN echo "ls"
+RUN ls
 COPY package*.json ./
 RUN npm install
 COPY . .
