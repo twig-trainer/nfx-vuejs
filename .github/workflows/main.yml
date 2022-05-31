@@ -12,7 +12,7 @@ jobs:
       uses: ./
       with:
        myInput: '----'
-    - name stage 3 (outputs:)
+    - name: stage 3 (outputs:)
       run: |
         echo ${{ steps.test.outputs.memory }}
         echo "current total memory in current env"
