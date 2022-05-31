@@ -1,9 +1,10 @@
 # develop stage
 FROM node:alpine as develop-stage
+ENV NODE_VERSION 18.2.0
 RUN echo "pwd : $PWD"
 RUN ls -la
 RUN npm cache clean -f
-RUN npm install -g npm@9.2.2
+RUN npm install -g npm@14.0.0
 RUN npm install -g @vue/cli
 RUN vue create -d hellovue 
 RUN cd hellovue
