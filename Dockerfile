@@ -4,6 +4,7 @@ ENV NODE_VERSION 14.19.3
 RUN echo "pwd : $PWD"
 RUN ls -la
 RUN npm cache clean -f
+RUN npm install -g npm@8.11.0 #fix 
 RUN npm install -g @vue/cli
 RUN vue create -p "Default (Vue 3)" hellovue 
 RUN cd hellovue
