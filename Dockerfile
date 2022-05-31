@@ -1,7 +1,9 @@
 # develop stage
 FROM node:alpine as develop-stage
 RUN ls -la
-RUN npm install -g @vue/cli
+RUN npm cache clean -f
+RUN npm install -g n
+RUN n latest
 RUN vue create hellovue
 RUN cd hellovue
 RUN ls -la
