@@ -6,11 +6,13 @@ RUN ls -la
 RUN npm cache clean -f
 RUN npm install -g npm@8.11.0 #fix 
 RUN npm install -g @vue/cli
-RUN yarn config set ignore-engines true
+RUN yarn config set ignore-engines true #fix errors
 RUN vue create -p "Default (Vue 3)" hellovue 
+RUN echo " > Successfully created project hellovue in folder /hellovue "
 RUN cd hellovue
 RUN ls -la
 WORKDIR /hellovue
+RUN npm run serve
 RUN echo "pwd : $PWD"
 RUN ls -la
 COPY /package*.json ./
