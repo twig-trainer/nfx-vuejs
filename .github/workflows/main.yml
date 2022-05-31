@@ -1,0 +1,18 @@
+on: [push]
+
+jobs:
+  first-job:
+    runs-on: node:18-alpine3.14
+    name: job 1 in workflow
+    steps:
+    - name: stage 1 (run the checkout action)
+      uses: actions/checkout@v2
+    - name: stage 2 (building docker image)
+      id: test
+      uses: ./
+      with:
+       myInput: '----'
+    - name stage 3 (outputs:)
+      run: |
+        echo ${{ steps.test.outputs.memory }}
+        echo "test ended in current env"
