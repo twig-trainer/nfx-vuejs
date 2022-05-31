@@ -14,7 +14,7 @@ RUN ls -la
 WORKDIR /hellovue
 RUN echo "pwd : $PWD"
 RUN ls -la
-COPY /package*.json ./
+COPY package*.json ./
 
 COPY . .
 
