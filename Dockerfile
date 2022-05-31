@@ -6,6 +6,7 @@ RUN ls -la
 RUN npm cache clean -f
 RUN npm install -g npm@8.11.0 #fix 
 RUN npm install -g @vue/cli
+RUN yarn config set ignore-engines true
 RUN vue create -p "Default (Vue 3)" hellovue 
 RUN cd hellovue
 RUN ls -la
