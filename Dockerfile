@@ -2,8 +2,7 @@
 FROM node:alpine as develop-stage
 RUN ls -la
 RUN npm cache clean -f
-RUN npm install -g n
-RUN n latest
+RUN npm install -g npm@8.11.0
 RUN vue create hellovue
 RUN cd hellovue
 RUN ls -la
