@@ -2,7 +2,7 @@ on: [push]
 
 jobs:
   first-job:
-    runs-on: node:18-alpine3.14
+    runs-on: ubuntu-latest
     name: job 1 in workflow
     steps:
     - name: stage 1 (run the checkout action)
