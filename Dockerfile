@@ -12,7 +12,6 @@ RUN echo " > Successfully created project hellovue in folder /hellovue "
 RUN cd hellovue
 RUN ls -la
 WORKDIR /hellovue
-RUN npm run serve
 RUN echo "pwd : $PWD"
 RUN ls -la
 COPY /package*.json ./
