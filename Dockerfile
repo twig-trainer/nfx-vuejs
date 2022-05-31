@@ -1,5 +1,6 @@
 # develop stage
 FROM node:alpine as develop-stage
+RUN ls -la
 WORKDIR /app
 RUN echo "pwd : $PWD"
 RUN ls -la
