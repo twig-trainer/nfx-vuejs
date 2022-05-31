@@ -1,11 +1,16 @@
 # develop stage
 FROM node:alpine as develop-stage
+RUN npm install
 RUN ls -la
-WORKDIR /app
+RUN npm install -g @vue/cli
+RUN vue create hellovue
+RUN cd hellovue
+RUN ls -la
+WORKDIR /hellovue
 RUN echo "pwd : $PWD"
 RUN ls -la
 COPY /package*.json ./
-RUN npm install
+
 COPY . .
 
 # build stage
