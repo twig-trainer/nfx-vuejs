@@ -5,7 +5,7 @@ RUN echo "pwd : $PWD"
 RUN ls -la
 RUN npm cache clean -f
 RUN npm install -g @vue/cli
-RUN vue create -d hellovue 
+RUN vue create -p "Default (Vue 3)" hellovue 
 RUN cd hellovue
 RUN ls -la
 WORKDIR /hellovue
