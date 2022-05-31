@@ -1,6 +1,6 @@
 # develop stage
 FROM node:alpine as develop-stage
-RUN pwd
+RUN echo "pwd : $PWD"
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
