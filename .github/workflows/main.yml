@@ -9,12 +9,12 @@ jobs:
     name: job 1 in workflow
     
     steps:
-    - name: stage 1 (run the checkout action)
+    - name: stage 1 (run the login & checkout action)
     - uses: actions/checkout@v2
-    - name: stage 2 (login action)
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+    - name: stage 2 ( action)
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: stage 2 (build the docker image)
