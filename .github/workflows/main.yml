@@ -3,7 +3,7 @@ on: [push]
 jobs:
   build: 
     runs-on: ubuntu-latest
-    name: job 1 in workflow    
+  
     steps:
     - name: stage 1 (run checkout action)
     - uses: actions/checkout@v2
