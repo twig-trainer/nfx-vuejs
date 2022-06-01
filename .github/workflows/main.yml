@@ -1,18 +1,16 @@
 on: [push]
 
 jobs:
-  build:
-    
+  build: 
     runs-on: ubuntu-latest
-    name: job 1 in workflow
-    
+    name: job 1 in workflow    
     steps:
-    - name: stage 1 (run the login & checkout action)
+    - name: stage 1 (run checkout action)
     - uses: actions/checkout@v2
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-    - name: stage 2 ( action)
+    - name: stage 2 ( the login action)
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: stage 2 (build the docker image)
