@@ -1,18 +1,23 @@
+name: Docker Image CI
+
 on: [push]
 
 jobs:
-  first-job:
+  build:
+    
     runs-on: ubuntu-latest
     name: job 1 in workflow
+    
     steps:
     - name: stage 1 (run the checkout action)
-      uses: actions/checkout@v2
-    - name: stage 2 (building docker image)
-      id: test
-      uses: ./
-      with:
-       myInput: '----'
-    - name: stage 3 (outputs:)
+    - uses: actions/checkout@v2
+    - name: stage 2 (login action)
+      env:
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run: |
-        echo ${{ steps.test.outputs.memory }}
-        echo "current total memory in current env"
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - name: stage 2 (build the docker image)
+      run: docker build . --file Dockerfile --tag hellovue/test:$(date +%s)   
+    - name: stage 3 ( push to registry:)
+      run: docker push ${{secrets.DOCKER_USER}}/vladimir8y/nflx-dev
