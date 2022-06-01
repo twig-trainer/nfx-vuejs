@@ -17,7 +17,7 @@ jobs:
     - name: Set tag value
       id: set_tag
       run: |
-        echo "TAG2=(date +%s)" >> $GITHUB_ENV
+        echo "TAG2='(date +%s)'" >> $GITHUB_ENV
     - name: stage 2 (build the docker image)
       run: |
         docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/nflx-dev:${{ env.TAG2 }}
