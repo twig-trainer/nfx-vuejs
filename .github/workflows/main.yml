@@ -20,7 +20,7 @@ jobs:
         echo "TAG2=$(date +%s)" >> $GITHUB_ENV
     - name: stage 2 (build the docker image)
       run: |
-        docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/nflx-dev:${{ env.TAG2 }}
+        docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/nflx-dev:${{github.run_number}}
     - name: stage 3 ( push to registry:)
       run: |
-        docker push ${{secrets.DOCKER_USER}}/nflx-dev:${{ env.TAG2 }}
+        docker push ${{secrets.DOCKER_USER}}/nflx-dev:${{github.run_number}}
