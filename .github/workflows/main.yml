@@ -2,7 +2,8 @@ name: Build and push
 on: [push]
 
 jobs:
-  build: 
+  build_and_push:
+  
     runs-on: ubuntu-latest
   
     steps:
