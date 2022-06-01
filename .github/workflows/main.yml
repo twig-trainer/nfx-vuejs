@@ -11,11 +11,12 @@ jobs:
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        TAG: hellovue/test:$(date +%s)
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: stage 2 (build the docker image)
       run: |
-        docker build . --file Dockerfile --tag hellovue/test:$(date +%s) 
+        docker build . --file Dockerfile --tag $TAG
     - name: stage 3 ( push to registry:)
       run: |
-        docker push ${{secrets.DOCKER_USER}}/nflx-dev
+        docker push ${{secrets.DOCKER_USER}}/$TAG
