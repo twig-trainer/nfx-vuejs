@@ -11,7 +11,7 @@ jobs:
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-        TAG: "hellovue/test:$(date +%s)"
+        TAG: "hellovue/test:1.0.0"
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: stage 2 (build the docker image)
