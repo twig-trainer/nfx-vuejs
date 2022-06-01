@@ -14,14 +14,12 @@ jobs:
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    - name: Set the value
-      id: step_one
+    - name: Set tag value
+      id: set_tag
       run: |
-        echo "action_state=yellow" >> $GITHUB_ENV
-        echo "${{ env.action_state }}" # This will output 'yellow'
+        echo "TAG2=(date +%s)" >> $GITHUB_ENV
     - name: stage 2 (build the docker image)
       run: |
-        echo "{TAG2}={1.0.0}" >> $GITHUB_ENV
         docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/nflx-dev:${{ env.TAG2 }}
     - name: stage 3 ( push to registry:)
       run: |
