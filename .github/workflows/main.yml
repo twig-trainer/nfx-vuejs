@@ -7,12 +7,6 @@ jobs:
     steps:
     - name: stage 1 (run checkout action)
     - uses: actions/checkout@v2
-      env:
-        DOCKER_USER: ${{secrets.DOCKER_USER}}
-        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-    - name: stage 2 ( the login action)
-      run: |
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: stage 2 (build the docker image)
       run: |
         docker build . --file Dockerfile --tag hellovue/test:$(date +%s)   
