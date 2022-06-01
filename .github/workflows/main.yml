@@ -16,10 +16,6 @@ jobs:
     - name: stage 2 (build the docker image)
       run: |
         docker build . --file Dockerfile --tag hellovue/test:$(date +%s) 
-    - name: stage test
-      run: |
-        echo ${{DOCKER_USER}}
-        echo "stage test ended"
     - name: stage 3 ( push to registry:)
       run: |
         docker push ${{secrets.DOCKER_USER}}/nflx-dev
