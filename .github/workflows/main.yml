@@ -16,7 +16,7 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: stage 2 (build the docker image)
       run: |
-        docker build . --file Dockerfile --tag ${TAG}
+        docker build . --file Dockerfile --tag ${{TAG}}
     - name: stage 3 ( push to registry:)
       run: |
-        docker push ${{secrets.DOCKER_USER}}/${TAG}
+        docker push ${{secrets.DOCKER_USER}}/${{TAG}}
