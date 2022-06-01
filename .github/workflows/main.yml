@@ -16,8 +16,8 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: stage 2 (build the docker image)
       run: |
-        echo "TAG2=1.0.0" >> $GITHUB_ENV
-        docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/nflx-dev:${{env.TAG2}}
+        echo "TAG2={1.0.0}" >> $GITHUB_ENV
+        docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/nflx-dev:${{ env.TAG2 }}
     - name: stage 3 ( push to registry:)
       run: |
-        docker push ${{secrets.DOCKER_USER}}/nflx-dev:${{env.TAG2}}
+        docker push ${{secrets.DOCKER_USER}}/nflx-dev:${{ env.TAG2 }}
