@@ -4,14 +4,14 @@ on: [push]
 jobs:
 
   create_template_file:
-    needs: [tests,build_and_push]
+    needs: [tests_node-version,build_and_push]
     runs-on: ubuntu-latest
     
     steps:
     - name: stage 1 (run checkout action)
       uses: actions/checkout@v2
 
-    - name: create cfg file 
+    - name: create cfg file with build_number 
       env:
         SOME_VARIABLE_1: value_1
         SOME_VARIABLE_2: value_4
@@ -19,7 +19,7 @@ jobs:
       run: |
         cat argo-template.yml | envsubst > nfx-vuejs.yml
         cat nfx-vuejs.yml
-    - name: commit and push
+    - name: auto-commit and push cfg file
       uses: dmnemec/copy_file_to_another_repo_action@main
       env: 
         API_TOKEN_GITHUB: ${{secrets.API_TOKEN_GITHUB_PUSH}}
@@ -29,10 +29,10 @@ jobs:
         destination_folder: ''
         user_email: 'twig.trainer-05@icloud.com'
         user_name: 'twig-trainer'
-        commit_message: 'Automated Push cfg file'
+        commit_message: 'Automated Push cfg file! No changes manually!'
      
-  tests:
-     
+  tests_node-version:
+    
     runs-on: ubuntu-latest
     
     strategy:
@@ -50,7 +50,7 @@ jobs:
       - run: npm test
 
   build_and_push:
-    needs: tests
+    needs: tests_node-version
     runs-on: ubuntu-latest
     
     steps:
@@ -69,6 +69,6 @@ jobs:
     - name: stage 2 (build the docker image)
       run: |
         docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/nflx-dev:build_${{github.run_number}}
-    - name: stage 3 ( push to registry:)
+    - name: stage 3 ( push Build to registry:)
       run: |
         docker push ${{secrets.DOCKER_USER}}/nflx-dev:build_${{github.run_number}}
