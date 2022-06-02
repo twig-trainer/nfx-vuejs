@@ -27,21 +27,22 @@ jobs:
     - name: stage 1 (run checkout action)
       uses: actions/checkout@v2
     
-    - name: Push cfg file
+    - name: create cfg file
+      #uses: 
       env:
         SOME_VARIABLE_1: value_1
         SOME_VARIABLE_2: value_2
         API_TOKEN_GITHUB: ${{secrets.API_TOKEN_GITHUB_PUSH}}
-        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run: |
         cat template.cfg | envsubst > whatever.cfg
         cat whatever.cfg
-        source_file: 'whatever.cfg'
-        destination_repo: 'twig-trainer/argocd-dev'
-        destination_folder: 'test-dir'
-        user_email: 'twig-trainer-pipeline@email.com'
-        user_name: 'sa-twig-trainer'
-        commit_message: 'sa-twig-trainer Push cfg file'
+    - name: commit and push
+      run: |
+        git config --global user.name 'sa-twig-trainer'
+        git config --global user.email 'twig-trainer@users.noreply.github.com'
+        git remote set-url origin https://x-access-token:${{ secrets.API_TOKEN_GITHUB_PUSH }}@github.com/twig-trainer/argocd-dev@master
+        git commit -am "Automated Push cfg file"
+        git push
 
   build_and_push:
     needs: tests
