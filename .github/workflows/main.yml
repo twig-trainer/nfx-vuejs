@@ -2,8 +2,36 @@ name: Build and push
 on: [push]
 
 jobs:
+
+  create_template_file:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: stage 1 (run checkout action)
+      uses: actions/checkout@v2
+    
+    - name: create cfg file
+      #uses: 
+      env:
+        SOME_VARIABLE_1: value_1
+        SOME_VARIABLE_2: value_2+1
+      run: |
+        cat template.cfg | envsubst > whatever.cfg
+        cat whatever.cfg
+    - name: commit and push
+      run: |
+        git remote set-url origin https://github.com/twig-trainer/argocd-dev.git
+        git config --global user.name 'twig-trainer'
+        git config --global user.email 'twig.trainer-05@icloud.com'
+        git add -A
+        git commit -am "Automated Push cfg file"
+    - name: push
+      uses: ad-m/github-push-action@master
+      with:
+          github_token: ${{ secrets.API_TOKEN_GITHUB_PUSH }}
   
   tests:
+    needs: create_template_file  
     runs-on: ubuntu-latest
     
     strategy:
@@ -19,36 +47,9 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
-      
-  create_template_file:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: stage 1 (run checkout action)
-      uses: actions/checkout@v2
-    
-    - name: create cfg file
-      #uses: 
-      env:
-        SOME_VARIABLE_1: value_1
-        SOME_VARIABLE_2: value_2
-      run: |
-        cat template.cfg | envsubst > whatever.cfg
-        cat whatever.cfg
-    - name: commit and push
-      run: |
-        git remote set-url origin https://github.com/twig-trainer/argocd-dev.git
-        git config --global user.name 'twig-trainer'
-        git config --global user.email 'twig.trainer-05@icloud.com'
-        git add -A
-        git commit -am "Automated Push cfg file"
-    - name: push
-      uses: ad-m/github-push-action@master
-      with:
-          github_token: ${{ secrets.API_TOKEN_GITHUB_PUSH }}
 
   build_and_push:
-    needs: tests
+    needs: [tests,create_template_file]
     runs-on: ubuntu-latest
     
     steps:
