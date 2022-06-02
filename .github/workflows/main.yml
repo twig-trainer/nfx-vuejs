@@ -24,7 +24,7 @@ jobs:
       with:
         source_file: 'whatever.cfg'
         destination_repo: 'twig-trainer/argocd-dev'
-        destination_folder: ''
+        destination_folder: 'configurations'
         user_email: 'twig.trainer-05@icloud.com'
         user_name: 'twig-trainer'
         commit_message: 'Automated Push cfg file'
