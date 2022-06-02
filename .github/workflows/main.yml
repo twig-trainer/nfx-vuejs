@@ -20,20 +20,28 @@ jobs:
       - run: npm run build --if-present
       - run: npm test
       
-  template:
+  create_template_file:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
     - name: stage 1 (run checkout action)
+      uses: actions/checkout@v2
+    
+    - name: Push cfg file
       env:
         SOME_VARIABLE_1: value_1
         SOME_VARIABLE_2: value_2
-        DOCKER_USER: ${{secrets.DOCKER_USER}}
+        API_TOKEN_GITHUB: ${{secrets.API_TOKEN_GITHUB_PUSH}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run: |
         cat template.cfg | envsubst > whatever.cfg
         cat whatever.cfg
+        source_file: 'whatever.cfg'
+        destination_repo: 'twig-trainer/argocd-dev'
+        destination_folder: 'test-dir'
+        user_email: 'twig-trainer-pipeline@email.com'
+        user_name: 'sa-twig-trainer'
+        commit_message: 'sa-twig-trainer Push cfg file'
 
   build_and_push:
     needs: tests
