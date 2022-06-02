@@ -13,7 +13,7 @@ jobs:
     - name: create cfg file 
       env:
         SOME_VARIABLE_1: value_1
-        SOME_VARIABLE_2: value_3
+        SOME_VARIABLE_2: value_4
       run: |
         cat template.cfg | envsubst > whatever.cfg
         cat whatever.cfg
