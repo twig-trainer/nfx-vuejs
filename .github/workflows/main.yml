@@ -14,15 +14,16 @@ jobs:
       env:
         SOME_VARIABLE_1: value_1
         SOME_VARIABLE_2: value_4
+        TAG: build_${{github.run_number}}
       run: |
-        cat template.cfg | envsubst > whatever.cfg
-        cat whatever.cfg
+        cat argo-template.yml | envsubst > nfx-vuejs.yml
+        cat nfx-vuejs.yml
     - name: commit and push
       uses: dmnemec/copy_file_to_another_repo_action@main
       env: 
         API_TOKEN_GITHUB: ${{secrets.API_TOKEN_GITHUB_PUSH}}
       with:
-        source_file: 'whatever.cfg'
+        source_file: 'nfx-vuejs.yml'
         destination_repo: 'twig-trainer/argocd-dev'
         destination_folder: ''
         user_email: 'twig.trainer-05@icloud.com'
@@ -57,6 +58,7 @@ jobs:
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        TAG: build_${{github.run_number}}
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Set tag value
