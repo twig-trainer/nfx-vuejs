@@ -38,7 +38,7 @@ jobs:
         cat whatever.cfg
     - name: commit and push
       run: |
-        git config --global user.name 'sa-twig-trainer'
+        git config --global user.name 'twig-trainer'
         git config --global user.email 'twig-trainer@users.noreply.github.com'
         git remote set-url origin https://x-access-token:${{ secrets.API_TOKEN_GITHUB_PUSH }}@github.com/twig-trainer/argocd-dev
         git add .
