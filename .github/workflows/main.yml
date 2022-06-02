@@ -32,18 +32,20 @@ jobs:
       env:
         SOME_VARIABLE_1: value_1
         SOME_VARIABLE_2: value_2
-        API_TOKEN_GITHUB: ${{secrets.API_TOKEN_GITHUB_PUSH}}
       run: |
         cat template.cfg | envsubst > whatever.cfg
         cat whatever.cfg
     - name: commit and push
       run: |
+        git remote set-url origin https://github.com/twig-trainer/argocd-dev.git
         git config --global user.name 'twig-trainer'
         git config --global user.email 'twig.trainer-05@icloud.com'
-        git remote set-url origin https://twig-trainer:${{ secrets.API_TOKEN_GITHUB_PUSH }}@github.com/twig-trainer/argocd-dev.git
-        git add .
+        git add -A
         git commit -am "Automated Push cfg file"
-        git push
+    - name: push
+      uses: ad-m/github-push-action@master
+      with:
+          github_token: ${{ secrets.API_TOKEN_GITHUB_PUSH }}
 
   build_and_push:
     needs: tests
