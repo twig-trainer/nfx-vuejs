@@ -4,6 +4,7 @@ on: [push]
 jobs:
 
   create_template_file:
+    needs: [tests,build_and_push]
     runs-on: ubuntu-latest
     
     steps:
@@ -31,7 +32,7 @@ jobs:
         commit_message: 'Automated Push cfg file'
      
   tests:
-    needs: create_template_file  
+     
     runs-on: ubuntu-latest
     
     strategy:
