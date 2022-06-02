@@ -3,8 +3,8 @@ on: [push]
 
 jobs:
 
-  create_template_file:
-    needs: [tests_node-version,build_and_push]
+  create_application_cfg_file:
+    needs: [tests_node-version,build_and_push_to_container_repo]
     runs-on: ubuntu-latest
     
     steps:
@@ -27,7 +27,7 @@ jobs:
         source_file: 'nfx-vuejs.yml'
         destination_repo: 'twig-trainer/argocd-dev'
         destination_folder: ''
-        user_email: 'twig.trainer-05@icloud.com'
+        user_email: ${{ secrets.EMAIL_USER }}
         user_name: 'twig-trainer'
         commit_message: 'Automated Push cfg file! No changes manually!'
      
@@ -49,7 +49,7 @@ jobs:
       - run: npm run build --if-present
       - run: npm test
 
-  build_and_push_to_contaier_repo:
+  build_and_push_to_container_repo:
     needs: tests_node-version
     runs-on: ubuntu-latest
     
