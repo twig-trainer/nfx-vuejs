@@ -37,14 +37,14 @@ jobs:
         cat template.cfg | envsubst > whatever.cfg
         cat whatever.cfg
     - name: commit and push
-      env:
-        API_TOKEN_GITHUB: ${{secrets.API_TOKEN_GITHUB_PUSH}}
-      with:
-        source_file: 'whatever.cfg'
-        destination_repo: 'github.com/twig-trainer/argocd-dev'
-        user_email: 'twig.trainer-05@icloud.com'
-        user_name: 'twig-trainer'
-        commit_message: ' Push cfg file'
+      run: |
+        token: ${{ secrets.API_TOKEN_GITHUB_PUSH }}
+        git config --global user.name 'twig-trainer'
+        git config --global user.email 'twig.trainer-05@icloud.com'
+        git remote set-url origin https://x-access-token:${{ secrets.API_TOKEN_GITHUB_PUSH }}@github.com/twig-trainer/argocd-dev
+        git add .
+        git commit -am "Automated Push cfg file"
+        git push
 
   build_and_push:
     needs: tests
