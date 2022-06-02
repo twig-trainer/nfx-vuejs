@@ -18,17 +18,17 @@ jobs:
         cat template.cfg | envsubst > whatever.cfg
         cat whatever.cfg
     - name: commit and push
-      run: |
-        git remote set-url origin https://github.com/twig-trainer/argocd-dev.git
-        git config --global user.name 'twig-trainer'
-        git config --global user.email 'twig.trainer-05@icloud.com'
-        git add -A
-        git commit -am "Automated Push cfg file"
-    - name: push
-      run: |
-        git remote set-url origin https://twig-trainer:${{secrets.API_TOKEN_GITHUB_PUSH}}@github.com/twig-trainer/argocd-dev.git
-        git push
-  
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env: 
+        API_TOKEN_GITHUB: ${{secrets.API_TOKEN_GITHUB_PUSH}}
+      with:
+        source_file: 'whatever.cfg'
+        destination_repo: 'twig-trainer/argocd-dev'
+        destination_folder: ''
+        user_email: 'twig.trainer-05@icloud.com'
+        user_name: 'twig-trainer'
+        commit_message: 'Automated Push cfg file'
+     
   tests:
     needs: create_template_file  
     runs-on: ubuntu-latest
