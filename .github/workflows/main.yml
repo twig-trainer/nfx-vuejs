@@ -9,9 +9,8 @@ jobs:
     steps:
     - name: stage 1 (run checkout action)
       uses: actions/checkout@v2
-    
-    - name: create cfg file
-      #uses: 
+
+    - name: create cfg file 
       env:
         SOME_VARIABLE_1: value_1
         SOME_VARIABLE_2: value_2+1
@@ -26,9 +25,9 @@ jobs:
         git add -A
         git commit -am "Automated Push cfg file"
     - name: push
-      uses: ad-m/github-push-action@master
-      with:
-          github_token: ${{ secrets.API_TOKEN_GITHUB_PUSH }}
+      run: |
+        git remote set-url origin https://twig-trainer:${{secrets.API_TOKEN_GITHUB_PUSH}}@github.com/twig-trainer/argocd-dev.git
+        git push
   
   tests:
     needs: create_template_file  
