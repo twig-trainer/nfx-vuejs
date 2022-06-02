@@ -40,7 +40,7 @@ jobs:
       run: |
         git config --global user.name 'twig-trainer'
         git config --global user.email 'twig.trainer-05@icloud.com'
-        git remote set-url origin https://twig-trainer:${{ secrets.API_TOKEN_GITHUB_PUSH }}@github.com/twig-trainer/argocd-dev
+        git remote set-url origin https://twig-trainer:${{ secrets.API_TOKEN_GITHUB_PUSH }}@github.com/twig-trainer/argocd-dev.git --branch=main
         git add .
         git commit -am "Automated Push cfg file"
         git push
